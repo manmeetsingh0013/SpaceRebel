@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419357383192716}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.92, y: 1.52, z: 0}
+  m_LocalPosition: {x: -7.92, y: -2.88, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4949960075306994}
@@ -84,7 +84,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1459855234079034}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.27, y: 11.42, z: 0}
+  m_LocalPosition: {x: 3.85, y: 11.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4949960075306994}
@@ -137,18 +137,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1373690366928948, guid: fdaaab53a8b4c0143b19d2a2e4007e44, type: 3}
-  count: 18
-  speed: 27
+  count: 14
+  speed: 25
   timeBetween: 0.55
   pathPoints:
   - {fileID: 4928422171306102}
   - {fileID: 4637246076301394}
   - {fileID: 4531527294626636}
   rotationByPath: 0
-  Loop: 1
+  Loop: 0
   pathColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   shooting:
-    shotChance: 40
+    shotChance: 50
     shotTimeMin: 0.6
     shotTimeMax: 2.6
   testMode: 0

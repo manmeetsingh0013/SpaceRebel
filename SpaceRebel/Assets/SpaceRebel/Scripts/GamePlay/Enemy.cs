@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System.Collections;
 /// <summary>
 /// This script defines 'Enemy's' health and behavior. 
 /// </summary>
@@ -21,13 +21,27 @@ public class Enemy : MonoBehaviour {
 
     [HideInInspector] public float shotTimeMin, shotTimeMax; //max and min time for shooting from the beginning of the path
 
+    private int remainingHealth;
+
     #endregion
 
-    private void Start()
+    private void OnEnable()
     {
-        Invoke("ActivateShooting", Random.Range(shotTimeMin, shotTimeMax));
+        //Invoke("ActivateShooting", Random.Range(shotTimeMin, shotTimeMax));
+        remainingHealth = health;
+        StartCoroutine(ActivateShooting(Random.Range(shotTimeMin, shotTimeMax)));
     }
 
+    IEnumerator ActivateShooting(float randomDelay)
+    {
+        yield return new WaitForSeconds(randomDelay);
+        while(gameObject.activeInHierarchy)
+        {
+            ActivateShooting();
+            yield return new WaitForSeconds(Random.Range(shotTimeMin, shotTimeMax));
+        }
+        
+    }
     //coroutine making a shot
     void ActivateShooting() 
     {
@@ -46,8 +60,8 @@ public class Enemy : MonoBehaviour {
     //method of getting damage for the 'Enemy'
     public void GetDamage(int damage) 
     {
-        health -= damage;           //reducing health for damage value, if health is less than 0, starting destruction procedure
-        if (health <= 0)
+        remainingHealth -= damage;           //reducing health for damage value, if health is less than 0, starting destruction procedure
+        if (remainingHealth <= 0)
             Destruction();
         else
         {

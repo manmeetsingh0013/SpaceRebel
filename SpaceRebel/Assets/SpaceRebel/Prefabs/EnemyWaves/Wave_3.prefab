@@ -137,18 +137,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1373690366928948, guid: fdaaab53a8b4c0143b19d2a2e4007e44, type: 3}
-  count: 12
-  speed: 35
+  count: 8
+  speed: 20
   timeBetween: 0.4
   pathPoints:
   - {fileID: 4482556729937318}
   - {fileID: 4055463252696600}
   - {fileID: 4001109463677860}
   rotationByPath: 1
-  Loop: 1
+  Loop: 0
   pathColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   shooting:
-    shotChance: 40
+    shotChance: 35
     shotTimeMin: 0.6
     shotTimeMax: 2.6
   testMode: 0

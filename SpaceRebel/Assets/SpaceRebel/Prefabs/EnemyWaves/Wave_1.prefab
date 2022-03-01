@@ -136,9 +136,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bce8ed9b64f39c44bdd9d3b9f6debe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1373690366928948, guid: 1361efc6f37fa4f549e5cab93f3b4b8b, type: 3}
+  enemy: {fileID: 1373690366928948, guid: fdaaab53a8b4c0143b19d2a2e4007e44, type: 3}
   count: 4
-  speed: 30
+  speed: 15
   timeBetween: 0.6
   pathPoints:
   - {fileID: 4858740230125270}
@@ -148,7 +148,7 @@ MonoBehaviour:
   Loop: 0
   pathColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   shooting:
-    shotChance: 75
+    shotChance: 30
     shotTimeMin: 0.6
-    shotTimeMax: 2
+    shotTimeMax: 2.6
   testMode: 0
