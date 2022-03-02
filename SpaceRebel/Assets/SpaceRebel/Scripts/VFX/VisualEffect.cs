@@ -7,7 +7,7 @@ using UnityEngine;
 public class VisualEffect : MonoBehaviour {
 
     [Tooltip("the time after object will be destroyed")]
-    public float destructionTime;
+    [SerializeField] float destructionTime;
 
     private void OnEnable()
     {

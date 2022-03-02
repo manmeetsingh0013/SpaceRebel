@@ -22,7 +22,7 @@ public class LevelController : MonoBehaviour {
 
     public delegate void levelCompletion();
 
-    public static levelCompletion levelCompletionEvent;
+    public static levelCompletion levelCompletionEvent; // event for level up...
 
     #endregion
 
@@ -153,7 +153,7 @@ public class LevelController : MonoBehaviour {
         {
             ////choose random object from the list, generate and delete it
             int randomIndex = Random.Range(0, planetsList.Count);
-            GameObject newPlanet = PoolingController.instance.GetPoolingObject(planetsList[randomIndex]);//nstantiate(planetsList[randomIndex]);
+            GameObject newPlanet = PoolingController.instance.GetPoolingObject(planetsList[randomIndex]);
             planetsList.RemoveAt(randomIndex);
             //if the list decreased to zero, reinstall it
             if (planetsList.Count == 0)
@@ -164,7 +164,7 @@ public class LevelController : MonoBehaviour {
                 }
             }
             newPlanet.SetActive(true);
-            newPlanet.GetComponent<DirectMoving>().speed = planetsSpeed;
+            newPlanet.GetComponent<DirectMoving>().SetSpeed(planetsSpeed);
 
             yield return new WaitForSeconds(timeBetweenPlanets);
         }

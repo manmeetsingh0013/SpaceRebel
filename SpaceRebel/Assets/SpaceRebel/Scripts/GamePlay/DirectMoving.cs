@@ -8,11 +8,16 @@ using UnityEngine;
 public class DirectMoving : MonoBehaviour {
 
     [Tooltip("Moving speed on Y axis in local space")]
-    public float speed;
+    [SerializeField] float speed;
 
     //moving the object with the defined speed
     private void Update()
     {
         transform.Translate(Vector3.up * speed * Time.deltaTime); 
+    }
+
+    public void SetSpeed(float _speed)
+    {
+        speed = _speed;
     }
 }
