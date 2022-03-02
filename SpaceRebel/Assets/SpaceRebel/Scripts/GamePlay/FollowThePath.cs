@@ -8,14 +8,22 @@ using System;
 /// </summary>
 public class FollowThePath : MonoBehaviour {
         
-    [HideInInspector] public Transform [] path; //path points which passes the 'Enemy' 
-    [HideInInspector] public float speed; 
-    [HideInInspector] public bool rotationByPath;   //whether 'Enemy' rotates in path direction or not
-    [HideInInspector] public bool loop;         //if loop is true, 'Enemy' returns to the path starting point after completing the path
+    private Transform [] path; //path points which passes the 'Enemy' 
+    private float speed;
+    private bool rotationByPath;   //whether 'Enemy' rotates in path direction or not
+    private bool loop;         //if loop is true, 'Enemy' returns to the path starting point after completing the path
     float currentPathPercent;               //current percentage of completing the path
     Vector3[] pathPositions;                //path points in vector3
-    [HideInInspector] public bool movingIsActive;   //whether 'Enemy' moves or not
+    private bool movingIsActive;   //whether 'Enemy' moves or not
 
+    public void SetData(Transform [] pathPoints,float _speed,bool _rotationByPath,bool _loop)
+    {
+        path = pathPoints;
+        speed = _speed;
+        rotationByPath = _rotationByPath;
+        loop = _loop;
+        SetPath();
+    }
     //setting path parameters for the 'Enemy' and sending the 'Enemy' to the path starting point
     public void SetPath() 
     {

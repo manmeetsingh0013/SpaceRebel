@@ -45,6 +45,11 @@ public class UIManager : MonoBehaviour
 
     #endregion
 
+    private void OnEnable()
+    {
+        LevelController.levelCompletionEvent += LevelUp;
+    }
+
     private void Start()
     {
         levelUpInitPosition = levelUp.transform.localPosition;
@@ -53,6 +58,10 @@ public class UIManager : MonoBehaviour
 
         ChangeTheme(gameManager.isNebulaTheme);
 
+    }
+    private void OnDisable()
+    {
+        LevelController.levelCompletionEvent -= LevelUp;
     }
 
     #region PRIVATE METHODS

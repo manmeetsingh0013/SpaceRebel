@@ -13,22 +13,23 @@ public class PlayerShooting : MonoBehaviour {
     #region PUBLIC FIELDS
 
     [Tooltip("shooting frequency. the higher the more frequent")]
-    public float fireRate;
+    [SerializeField] float fireRate;
 
     [Tooltip("projectile prefab")]
-    public GameObject projectileObject;
-
-    //time for a new shot
-    [HideInInspector] public float nextFire;
-
+    [SerializeField] GameObject projectileObject;
 
     [Tooltip("current weapon power")]
     [Range(1, 4)]       //change it if you wish
-    public int weaponPower = 1; 
+    [SerializeField] int weaponPower = 1;
 
-    public Guns guns;
+    [SerializeField] Guns guns;
+
+    //time for a new shot
+    private float nextFire;
+
     bool shootingIsActive = true; 
-    [HideInInspector] public int maxweaponPower = 4; 
+    const int maxweaponPower = 4;
+
     public static PlayerShooting instance;
 
     #endregion
@@ -110,7 +111,6 @@ public class PlayerShooting : MonoBehaviour {
 
     void CreateLazerShot(GameObject lazer, Vector3 pos, Vector3 rot) //translating 'pooled' lazer shot to the defined position in the defined rotation
     {
-        //Instantiate(lazer, pos, Quaternion.Euler(rot));
         GameObject bullet = PoolingController.instance.GetPoolingObject(lazer);
         if(bullet !=null)
         {
@@ -120,5 +120,14 @@ public class PlayerShooting : MonoBehaviour {
         }
     }
 
+    #endregion
+    #region PUBLIC METHODS
+    public void IncrementWeaponPower()
+    {
+        if (weaponPower < maxweaponPower)
+        {
+            weaponPower++;
+        }
+    }
     #endregion
 }

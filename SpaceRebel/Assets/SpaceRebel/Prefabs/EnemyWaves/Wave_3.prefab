@@ -139,7 +139,7 @@ MonoBehaviour:
   enemy: {fileID: 1373690366928948, guid: fdaaab53a8b4c0143b19d2a2e4007e44, type: 3}
   count: 8
   speed: 20
-  timeBetween: 0.4
+  timeBetween: 0.8
   pathPoints:
   - {fileID: 4482556729937318}
   - {fileID: 4055463252696600}

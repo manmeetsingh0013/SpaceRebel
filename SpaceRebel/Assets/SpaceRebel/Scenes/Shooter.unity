@@ -1185,7 +1185,7 @@ GameObject:
   - component: {fileID: 1425279912}
   - component: {fileID: 1425279911}
   m_Layer: 0
-  m_Name: EnemyPool
+  m_Name: PoolingController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1231,6 +1231,15 @@ MonoBehaviour:
   - pooledPrefab: {fileID: 1256001557233130, guid: 2dd0bdb7830e6644da169b32252dca96,
       type: 3}
     count: 5
+  - pooledPrefab: {fileID: 1420951587850870, guid: 14ba388dd3927af43809d67838649ea3,
+      type: 3}
+    count: 3
+  - pooledPrefab: {fileID: 1868464169396128, guid: 284631a95d42dc047b90d8af25ac4457,
+      type: 3}
+    count: 3
+  - pooledPrefab: {fileID: 1017342213867866, guid: c1ae0b8d643fbea439d40b05d4acd750,
+      type: 3}
+    count: 3
 --- !u!4 &1425279912
 Transform:
   m_ObjectHideFlags: 0

@@ -62,10 +62,14 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Instantiate(hitEffect, transform.position, Quaternion.identity, transform);
-
+            GameObject hit = PoolingController.instance.GetPoolingObject(hitEffect);
+            if (hit != null)
+            {
+                hit.SetActive(true);
+                SetPostionAndRotationForTarget(hit.transform, transform.position, Quaternion.identity);
+                hit.transform.SetParent(transform);
+            }
             transform.position = initialPosition;
-
         }
     }
 
@@ -80,6 +84,12 @@ public class Player : MonoBehaviour
     #endregion
 
     #region PRIVATE METHODS
+
+    private void SetPostionAndRotationForTarget(Transform target, Vector3 pos,Quaternion quaternion)
+    {
+        target.position = pos;
+        target.rotation = quaternion;
+    }
 
     /// <summary>
     /// When player exaust all its health.
@@ -105,9 +115,21 @@ public class Player : MonoBehaviour
 
         Time.timeScale = 0;
 
-        Instantiate(destructionFX, transform.position, Quaternion.identity); //generating destruction visual effect and destroying the 'Player' object
-        gameObject.SetActive(false);
-        //Destroy(gameObject);
+        GameObject destruction = PoolingController.instance.GetPoolingObject(destructionFX); //generating destruction visual effect and destroying the 'Player' object
+        if (destruction != null)
+        {
+            destruction.SetActive(true);
+            SetPostionAndRotationForTarget(destruction.transform, transform.position, Quaternion.identity);
+            gameObject.SetActive(false);
+        }
+    }
+    private void OnApplicationQuit()
+    {
+        int previousScore = PlayerPrefs.GetInt(GameController.highestScoreKey);
+        if (previousScore < score)
+        {
+            PlayerPrefs.SetInt(GameController.highestScoreKey, score);
+        }
     }
     #endregion
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 #region Serializable classes
 [System.Serializable]
@@ -17,20 +18,28 @@ public class EnemyWaves
 
 public class LevelController : MonoBehaviour {
 
-    #region PUBLIC FEILDS
-    [SerializeField] UIManager uIManager;
-    //Serializable classes implements
-    public EnemyWaves[] enemyWaves; 
+    #region EVENTS
 
-    public GameObject powerUp;
-    public float timeForNewPowerup;
-    public GameObject[] planets;
-    public float timeBetweenPlanets;
-    public float planetsSpeed;
+    public delegate void levelCompletion();
+
+    public static levelCompletion levelCompletionEvent;
+
+    #endregion
+
+    #region EXPOSED FEILDS
+    [SerializeField] LevelConfig levelConfig;
+
+    [SerializeField] GameObject powerUp;
+    [SerializeField] float timeForNewPowerup;
+    [SerializeField] GameObject[] planets;
+    [SerializeField] float timeBetweenPlanets;
+    [SerializeField] float planetsSpeed;
 
     #endregion
 
     #region PRIVATE FILEDS
+
+    EnemyWaves[] enemyWaves;
 
     int delayForEnemy = 6;
 
@@ -45,7 +54,10 @@ public class LevelController : MonoBehaviour {
     Camera mainCamera;
 
     #endregion
-
+    private void Awake()
+    {
+        enemyWaves = levelConfig.enemyWaves;
+    }
     private void Start()
     {
         mainCamera = Camera.main;
@@ -99,8 +111,8 @@ public class LevelController : MonoBehaviour {
             {
                 levels++;
 
-                uIManager.LevelUp();
-              
+                levelCompletionEvent?.Invoke();
+
                 yield return new WaitForSeconds(2.5f);
 
                 Shuffle(enemyWaves);
@@ -141,7 +153,7 @@ public class LevelController : MonoBehaviour {
         {
             ////choose random object from the list, generate and delete it
             int randomIndex = Random.Range(0, planetsList.Count);
-            GameObject newPlanet = Instantiate(planetsList[randomIndex]);
+            GameObject newPlanet = PoolingController.instance.GetPoolingObject(planetsList[randomIndex]);//nstantiate(planetsList[randomIndex]);
             planetsList.RemoveAt(randomIndex);
             //if the list decreased to zero, reinstall it
             if (planetsList.Count == 0)
@@ -151,6 +163,7 @@ public class LevelController : MonoBehaviour {
                     planetsList.Add(planets[i]);
                 }
             }
+            newPlanet.SetActive(true);
             newPlanet.GetComponent<DirectMoving>().speed = planetsSpeed;
 
             yield return new WaitForSeconds(timeBetweenPlanets);

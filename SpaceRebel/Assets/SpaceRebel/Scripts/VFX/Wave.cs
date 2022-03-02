@@ -23,32 +23,32 @@ public class Wave : MonoBehaviour {
     #region PUBLIC FIELDS
 
     [Tooltip("Enemy's prefab")]
-    public GameObject enemy;
+    [SerializeField] GameObject enemy;
 
     [Tooltip("a number of enemies in the wave")]
-    public int count;
+    [SerializeField] int count;
 
     [Tooltip("path passage speed")]
-    public float speed;
+    [SerializeField] float speed;
 
     [Tooltip("time between emerging of the enemies in the wave")]
-    public float timeBetween;
+    [SerializeField] float timeBetween;
 
     [Tooltip("points of the path. delete or add elements to the list if you want to change the number of the points")]
-    public Transform[] pathPoints;
+    [SerializeField] Transform[] pathPoints;
 
     [Tooltip("whether 'Enemy' rotates in path passage direction")]
-    public bool rotationByPath;
+    [SerializeField] bool rotationByPath;
 
     [Tooltip("if loop is activated, after completing the path 'Enemy' will return to the starting point")]
-    public bool Loop;
+    [SerializeField] bool Loop;
 
     [Tooltip("color of the path in the Editor")]
-    public Color pathColor = Color.yellow;
-    public Shooting shooting;
+    [SerializeField] Color pathColor = Color.yellow;
+    [SerializeField] Shooting shooting;
 
     [Tooltip("if testMode is marked the wave will be re-generated after 3 sec")]
-    public bool testMode;
+    [SerializeField] bool testMode;
 
     #endregion
 
@@ -67,15 +67,9 @@ public class Wave : MonoBehaviour {
             if (newEnemy != null)
             {
                 FollowThePath followComponent = newEnemy.GetComponent<FollowThePath>();
-                followComponent.path = pathPoints;
-                followComponent.speed = speed;
-                followComponent.rotationByPath = rotationByPath;
-                followComponent.loop = Loop;
-                followComponent.SetPath();
+                followComponent.SetData(pathPoints, speed, rotationByPath, Loop);
                 Enemy enemyComponent = newEnemy.GetComponent<Enemy>();
-                enemyComponent.shotChance = shooting.shotChance;
-                enemyComponent.shotTimeMin = shooting.shotTimeMin;
-                enemyComponent.shotTimeMax = shooting.shotTimeMax;
+                enemyComponent.SetData(shooting.shotChance, shooting.shotTimeMin, shooting.shotTimeMax);
                 newEnemy.SetActive(true);
                 yield return new WaitForSeconds(timeBetween);
             }

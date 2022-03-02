@@ -15,7 +15,7 @@ public class PoolingObjects
 public class PoolingController : MonoBehaviour {
 
     [Tooltip("Your 'pooling' objects. Add new element and add the prefab to create the object prefab")]
-    public PoolingObjects[] poolingObjectsClass;
+    [SerializeField] PoolingObjects[] poolingObjectsClass;
 
     //The list where 'pooling' objects will be stored
     List<GameObject> pooledObjectsList = new List<GameObject>();
@@ -27,7 +27,7 @@ public class PoolingController : MonoBehaviour {
         if (instance == null)
             instance = this;
     }
-
+   
     private void Start()
     {
         CreateNewList();        //Create the new list of 'pooling' objects

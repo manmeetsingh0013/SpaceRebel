@@ -19,8 +19,8 @@ public class Boundary : MonoBehaviour {
     void ResizeCollider() 
     {        
         Vector2 viewportSize = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)) * 2;
-        viewportSize.x *= 1.5f;
-        viewportSize.y *= 1.5f;
+        viewportSize.x *= 1.1f;
+        viewportSize.y *= 1.1f;
         boundareCollider.size = viewportSize;
     }
 
@@ -30,7 +30,6 @@ public class Boundary : MonoBehaviour {
         if (collision.tag == "Projectile")
         {
             collision.gameObject.SetActive(false);
-            //Destroy(collision.gameObject);
         }
         else if (collision.tag == "Bonus") 
             Destroy(collision.gameObject); 

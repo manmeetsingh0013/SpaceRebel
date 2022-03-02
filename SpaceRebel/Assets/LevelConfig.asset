@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d99836d077c447499a49992fe63de2, type: 3}
+  m_Name: LevelConfig
+  m_EditorClassIdentifier: 
+  enemyWaves:
+  - timeToStart: 0
+    wave: {fileID: 1947974370059188, guid: 318d55ffb775da9468ebdb13dc56bb30, type: 3}
+  - timeToStart: 4
+    wave: {fileID: 1692215992462570, guid: 15eadeed59ef1574896dd15b62c0ff3c, type: 3}
+  - timeToStart: 8
+    wave: {fileID: 1945754960637166, guid: 667129e9a76b0bf4095966e1592dfe5b, type: 3}
+  - timeToStart: 12
+    wave: {fileID: 1254980403870950, guid: 8d5ec165f323f6c448c6897268785a2a, type: 3}
+  - timeToStart: 16
+    wave: {fileID: 1177001650480530, guid: e64040bc8d8b82c45a9297ac9699e081, type: 3}
+  - timeToStart: 20
+    wave: {fileID: 1643244333601292, guid: d5985777a604bf240a36957329db29c1, type: 3}
+  - timeToStart: 24
+    wave: {fileID: 1643244333601292, guid: dca80635e23564fb6a19c234ee6ea96c, type: 3}
+  - timeToStart: 27
+    wave: {fileID: 1643244333601292, guid: ff5e29f4e5d2f4271be5756ba2d941c2, type: 3}
+  - timeToStart: 31
+    wave: {fileID: 1945754960637166, guid: 667129e9a76b0bf4095966e1592dfe5b, type: 3}
+  - timeToStart: 34
+    wave: {fileID: 1947974370059188, guid: 318d55ffb775da9468ebdb13dc56bb30, type: 3}
+  - timeToStart: 37
+    wave: {fileID: 1177001650480530, guid: e64040bc8d8b82c45a9297ac9699e081, type: 3}
+  - timeToStart: 40
+    wave: {fileID: 1254980403870950, guid: 8d5ec165f323f6c448c6897268785a2a, type: 3}
+  - timeToStart: 42
+    wave: {fileID: 1643244333601292, guid: d5985777a604bf240a36957329db29c1, type: 3}
+  - timeToStart: 44
+    wave: {fileID: 1692215992462570, guid: 15eadeed59ef1574896dd15b62c0ff3c, type: 3}
+  - timeToStart: 46
+    wave: {fileID: 1945754960637166, guid: 667129e9a76b0bf4095966e1592dfe5b, type: 3}
+  - timeToStart: 48
+    wave: {fileID: 1643244333601292, guid: dca80635e23564fb6a19c234ee6ea96c, type: 3}
+  - timeToStart: 50
+    wave: {fileID: 1177001650480530, guid: e64040bc8d8b82c45a9297ac9699e081, type: 3}
+  - timeToStart: 52
+    wave: {fileID: 1643244333601292, guid: ff5e29f4e5d2f4271be5756ba2d941c2, type: 3}

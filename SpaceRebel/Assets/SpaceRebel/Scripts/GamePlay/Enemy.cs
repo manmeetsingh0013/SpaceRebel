@@ -8,26 +8,30 @@ public class Enemy : MonoBehaviour {
 
     #region PUBLIC FIELDS
     [Tooltip("Health points in integer")]
-    public int health;
+    [SerializeField] int health;
 
     [Tooltip("Enemy's projectile prefab")]
-    public GameObject Projectile;
+    [SerializeField] GameObject Projectile;
 
     [Tooltip("VFX prefab generating after destruction")]
-    public GameObject destructionVFX;
-    public GameObject hitEffect;
+    [SerializeField] GameObject destructionVFX;
+    [SerializeField] GameObject hitEffect;
 
-    [HideInInspector] public int shotChance; //probability of 'Enemy's' shooting during tha path
+    private int shotChance; //probability of 'Enemy's' shooting during tha path
 
-    [HideInInspector] public float shotTimeMin, shotTimeMax; //max and min time for shooting from the beginning of the path
+    private float shotTimeMin, shotTimeMax; //max and min time for shooting from the beginning of the path
 
     private int remainingHealth;
 
+    private PoolingController poolingController;
     #endregion
-
+    private void Awake()
+    {
+        poolingController = PoolingController.instance;
+    }
+    #region PRIVATE METHODS
     private void OnEnable()
     {
-        //Invoke("ActivateShooting", Random.Range(shotTimeMin, shotTimeMax));
         remainingHealth = health;
         StartCoroutine(ActivateShooting(Random.Range(shotTimeMin, shotTimeMax)));
     }
@@ -47,16 +51,54 @@ public class Enemy : MonoBehaviour {
     {
         if (Random.value < (float)shotChance / 100)                             //if random value less than shot probability, making a shot
         {
-            GameObject bullet = PoolingController.instance.GetPoolingObject(Projectile);
+            GameObject bullet = poolingController.GetPoolingObject(Projectile);
             if (bullet != null)
             {
                 bullet.SetActive(true);
-                bullet.transform.position = gameObject.transform.position;
-                bullet.transform.rotation = Quaternion.identity;
+                SetPostionAndRotationForTarget(bullet.transform, transform.position, Quaternion.identity);
             }
         }
     }
 
+    private void SetPostionAndRotationForTarget(Transform target, Vector3 pos, Quaternion quaternion)
+    {
+        target.position = pos;
+        target.rotation = quaternion;
+    }
+
+    //if 'Enemy' collides 'Player', 'Player' gets the damage equal to projectile's damage value
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            if (Projectile.GetComponent<Projectile>() != null)
+                Player.instance.GetDamage(Projectile.GetComponent<Projectile>().GetDamage());
+            else
+                Player.instance.GetDamage(1);
+        }
+    }
+
+    //method of destroying the 'Enemy'
+    void Destruction()
+    {
+        GameController.GetInstance().PlayAudio(AUDIOTYPE.EXPLOSION);
+        GameObject destruction = poolingController.GetPoolingObject(destructionVFX);
+        if (destruction != null)
+        {
+            destruction.SetActive(true);
+            SetPostionAndRotationForTarget(destruction.transform, transform.position, Quaternion.identity);
+        }
+        gameObject.SetActive(false);
+    }
+    #endregion
+
+    #region PUBLIC METHODS
+    public void SetData(int _shotChance,float _shotTimeMin,float _shotTimeMax)
+    {
+        shotChance = _shotChance;
+        shotTimeMin = _shotTimeMin;
+        shotTimeMax = _shotTimeMax;
+    }
     //method of getting damage for the 'Enemy'
     public void GetDamage(int damage) 
     {
@@ -65,40 +107,14 @@ public class Enemy : MonoBehaviour {
             Destruction();
         else
         {
-            GameObject hit = PoolingController.instance.GetPoolingObject(hitEffect);
+            GameObject hit = poolingController.GetPoolingObject(hitEffect);
             if (hit != null)
             {
                 hit.SetActive(true);
-                hit.transform.position = transform.position;
-                hit.transform.rotation = Quaternion.identity;
+                SetPostionAndRotationForTarget(hit.transform, transform.position, Quaternion.identity);
                 hit.transform.SetParent(transform);
             }
         }
-    }    
-
-    //if 'Enemy' collides 'Player', 'Player' gets the damage equal to projectile's damage value
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Player")
-        {
-            if (Projectile.GetComponent<Projectile>() != null)
-                Player.instance.GetDamage(Projectile.GetComponent<Projectile>().damage);
-            else
-                Player.instance.GetDamage(1);
-        }
     }
-
-    //method of destroying the 'Enemy'
-    void Destruction()                           
-    {
-        GameController.GetInstance().PlayAudio(AUDIOTYPE.EXPLOSION);
-        GameObject destruction = PoolingController.instance.GetPoolingObject(destructionVFX);
-        if (destruction != null)
-        {
-            destruction.SetActive(true);
-            destruction.transform.position = transform.position;
-            destruction.transform.rotation = Quaternion.identity;
-        }
-        gameObject.SetActive(false);
-    }
+    #endregion
 }
